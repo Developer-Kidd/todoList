@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
 
-app.get('/', function(req, res) {
-    res.send('hello, express');
-});
-  
+//数据库
+const mysql = require("./lib/mysql");
+mysql.connect();
+
 app.listen(3000);

@@ -1,0 +1,22 @@
+/*
+ * scss 常用方法
+ */ 
+
+@import "~@/assets/style/variable.scss";
+
+/*
+ * 居中定位
+ * @type: 居中方式 1. vertical 垂直居中 2.verticakMiddle 水平垂直居中
+ */
+@mixin inMiddle($type) {
+    position: absolute;
+    @if $type == vertical {
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    @else if $type == verticakMiddle {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+}
