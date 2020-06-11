@@ -11,7 +11,7 @@
     */
     handleResponse: function(isSuccess = 0, data, errMsg = '') {
         const result = {};
-        result.stausCode = !isSuccess ? '0' : '00';
+        result.statusCode = !isSuccess ? '0' : '00';
         if(isSuccess) {
             result.data = data;
         } else {

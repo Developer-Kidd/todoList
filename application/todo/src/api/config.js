@@ -1,10 +1,11 @@
 import axios from 'axios';
 import qs from 'qs';
+import ElementUI from 'element-ui';
 
 //全局配置
 axios.defaults.timeout = 10000;
 //根据环境配置baseUrl
-axios.defaults.baseURL = process.env.NODE_ENV == 'development' ? '/test' : '';
+axios.defaults.baseURL = process.env.NODE_ENV == 'development' ? '' : '';
 
 //请求拦截
 axios.interceptors.request.use(config => {
@@ -45,7 +46,15 @@ export function get(url, params){
 export function post(url, params) {
     return new Promise((resolve, reject) => {
         axios.post(url, qs.stringify(params)).then(res => {
-          resolve(res.data);
+          //统一处理错误
+          if(res.data && res.data.statusCode === '00') {
+            resolve(res.data.data);
+          } else {
+            ElementUI.Message({
+                message: res.data.msg,
+                type: 'warning'
+            });
+          }
         }).catch(err =>{
           reject(err.data)
         })

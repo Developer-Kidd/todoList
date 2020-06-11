@@ -14,7 +14,7 @@ const users = require("../modules/users");
 
 /********   登陆模块   ********/
 router.post('/users/login', function(req, res, next) {
-    users.login(req.body.userName, req.body.password).then((result) => {
+    users.login(req.body.account, req.body.password).then((result) => {
         res.send(result);
     }, err => {
         res.send(err);
