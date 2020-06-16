@@ -16,8 +16,8 @@ module.exports = {
             }
         }
     },
-    //封装查询
-    query: function(sql,params,successCB,errorCB) {
+    //执行sql语句
+    exec: function(sql,params,successCB,errorCB) {
         global.pool.getConnection(function(err, connection) {
             connection.query(sql, params, function(err, result) {
                 if(err) {
@@ -31,4 +31,3 @@ module.exports = {
         });
     }
 }
-

@@ -4,7 +4,12 @@
 
 import { get, post } from './config';
 
-/** 基础请求 **/
+/** 登录 **/
 export const login = (params) => {
     return post('/users/login', params);
+};
+
+/** 注册 **/
+export const register = (params) => {
+    return post('/users/reg', params);
 };

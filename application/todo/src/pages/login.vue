@@ -22,21 +22,9 @@
         </el-form-item>
         <!-- 密码 -->
         <el-form-item label="" prop="password" class="relative">
-          <el-input
-            v-model="form.password"
-            placeholder="请输入您的密码"
-            :type="showPsd ? 'text' : 'password'"
-          ></el-input>
-          <i
-            class="iconfont iconeye_close pointer"
-            v-show="!showPsd"
-            @click="showPsd = !showPsd"
-          ></i>
-          <i
-            class="iconfont iconeye_open pointer"
-            v-show="showPsd"
-            @click="showPsd = !showPsd"
-          ></i>
+          <el-input v-model="form.password" placeholder="请输入您的密码" :type="showPsd ? 'text' : 'password'"></el-input>
+          <i class="iconfont iconeye_close pointer" v-show="!showPsd" @click="showPsd = !showPsd"></i>
+          <i class="iconfont iconeye_open pointer" v-show="showPsd" @click="showPsd = !showPsd"></i>
         </el-form-item>
         <p v-if="curAction === 'login'">
           <a class="forgetPsd pointer" href="javascript:void(0);">忘记密码?</a>
@@ -55,7 +43,7 @@
 </template>
 <script>
 import md5 from "js-md5"; //引入md5加密密码
-import { login } from "@/api/httpRequest.js";
+import { login, register } from "@/api/httpRequest.js";
 import { salt } from "@/config.js";
 export default {
   data() {
@@ -90,10 +78,7 @@ export default {
     },
     //登录
     login() {
-      const params = {
-        account: this.form.account,
-        password: md5(this.form.password + salt)
-      };
+      const params = { account: this.form.account, password: md5(this.form.password + salt) };
       login(params).then(res => {
         //登陆成功
         if (res) {
@@ -104,7 +89,13 @@ export default {
     },
     //注册
     register() {
-        debugger
+      const params = { account: this.form.account, password: md5(this.form.password + salt) };
+      register(params).then(res => {
+        if(res) {
+          this.$message.success("注册成功,请登陆使用系统!");
+          this.curAction = 'login';
+        }
+      });
     }
   }
 };
